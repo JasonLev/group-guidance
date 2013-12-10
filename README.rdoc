@@ -1,0 +1,1 @@
+Group Guidance is a social e-commerce application.  It is used to get group approval prior to online purchases.
