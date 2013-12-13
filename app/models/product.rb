@@ -1,19 +1,27 @@
 class Product < ActiveRecord::Base
   attr_accessible :title, :asin, :amazon_ref, :amazon_img, :price,
-  :description
+  :description, :img_height, :img_width
 
   # has_many :users
+
+  def is_approved(votes, group)
+    if votes > (group.length / 2)
+      return true
+    end
+  end
 
   def self.amazon_request(product)
 
     current_time = DateTime.now.utc.strftime("%FT%TZ")
+    item = product #.split(" ").join
 
     params = {
             "Service" => "AWSECommerceService",
             "AWSAccessKeyId" => ENV['AMAZON_KEY'],
             "AssociateTag" => ENV['AMAZON_ASSOCIATE_TAG'],
             "Condition" => "All",
-            "Keywords" => "chromecast",
+            "Keywords" => item,
+            # "ContentType" => json,
             "Operation" => "ItemSearch",
             "SearchIndex" => "Blended",
             "Timestamp" => current_time
@@ -38,13 +46,15 @@ class Product < ActiveRecord::Base
   end
 
   def self.get_amazon_attribs(product_obj)
-      # call it with rails c Product.get_amazon_attribs(product_obj)
+      # call it with rails c:  Product.get_amazon_attribs(product_obj)
     xml_doc = Product.amazon_request(product_obj)
 
     doc = Nokogiri::XML(xml_doc)
     doc.remove_namespaces!
-
+    binding.pry
     amazon_attribs = {}
+
+    doc.search('//some/path')
   end
 
 end

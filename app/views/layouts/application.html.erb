@@ -7,7 +7,38 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <header class="bck dark">
+    <div class="row">
+      <div class="column-8">
+        <a href="/">
+          <h3 class="text thick">Group Guidance</h3>
+        </a>
+      </div>
+      <nav class="column-8 text right">
+        <% if user_signed_in? %>
+          Getting Group Guidance as <%= current_user.email %>.
+          <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
 
+          <a href="#" class="button">
+            <span class="icon user">
+            </span>
+            Log Out
+          </a>
+        <% else %>
+          <a href="/users/login" class="button secondary">
+            <span class="icon user">
+            </span>
+            Sign In
+          </a>
+          <a href="/users/sign_up" class="button">
+            <span class="icon off">
+            </span>
+            Create Account
+          </a>
+        <% end %>
+      </nav>
+    </div>
+  </header>
 <%= yield %>
 
 </body>

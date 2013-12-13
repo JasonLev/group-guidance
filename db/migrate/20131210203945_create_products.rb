@@ -10,6 +10,8 @@ class CreateProducts < ActiveRecord::Migration
       t.string :img_width
       t.string :price
       t.text   :description
+      t.boolean :approved?, default: false
+      t.integer :votes
 
       t.timestamps
     end
