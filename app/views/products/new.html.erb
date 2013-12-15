@@ -1,0 +1,17 @@
+<h2>You can add items to your wishlist here:</h2>
+
+<%= form_for(:product, url:"/products") do |f| %>
+  <%= f.hidden_field :url, value: @url %>
+
+  <%= f.label :title %></br>
+  <%= f.text_field :title, placeholder: @title, value: @title %></br>
+
+  <%= f.label :description %></br>
+  <%= f.text_field :description, placeholder: "Description of the item(s)", value: @description %></br>
+  <%= f.label :price %></br>
+  <%= f.text_field :price, placeholder: @price, value: @price %></br>
+
+  <%= f.submit "Add your item(s)" %>
+<% end %>
+
+

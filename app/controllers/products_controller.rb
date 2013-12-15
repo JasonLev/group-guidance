@@ -5,4 +5,8 @@ class ProductsController < ApplicationController
     @products = Product.last
   end
 
+  def new
+
+  end
+
 end

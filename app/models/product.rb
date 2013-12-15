@@ -1,8 +1,10 @@
 class Product < ActiveRecord::Base
   attr_accessible :title, :asin, :amazon_ref, :amazon_img, :price,
-  :description, :img_height, :img_width
+  :description, :img_height, :img_width, :url
 
-  # has_many :users
+  belongs_to :user
+
+  # validate_presence_of :title, :price
 
   def is_approved(votes, group)
     if votes > (group.length / 2)
