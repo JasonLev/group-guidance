@@ -15,19 +15,52 @@
 //= require_tree .
 
 $(function () {
-  $('#profile_open').click(function(event) {
+  $( window ).load(function() {
+    if ( $('#guidance-list').length < 3) {
+    alert("You need to provide three advisers.")
+    };
+  });
+
+  // open the profile modal
+  $('#profile-open').click(function(event) {
     event.preventDefault();
+    TukTuk.Modal.show("profile");
+  });
 
-    TukTuk.Modal.show("profile")
-  })
-
+  // close the profile modal
   $('.transparent.small.on-right.inline.icon.remove').click(function(event) {
-    TukTuk.Modal.hide("profile")
-  })
-
+    TukTuk.Modal.hide("profile");
+  });
   $('.submit').click(function(event) {
+    TukTuk.Modal.hide("profile");
+  });
 
-    TukTuk.Modal.hide("profile")
-  })
+  // open the add-guidance modal
+  $('#add-guidance-open').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.show("add-guidance");
+  });
+
+  // close the add-guidance modal
+  $('#add-guidance-close').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.hide("add-guidance");
+  });
+  $('#add-guidance-cancel').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.hide("add-guidance");
+  });
+
+  // open the add-item modal
+  $('#add-item-open').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.show("add-item");
+  });
+
+  // close the add-item modal
+  $('#add-item-cancel').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.hide("add-item");
+  });
 
 })

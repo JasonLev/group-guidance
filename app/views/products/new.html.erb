@@ -1,17 +1,24 @@
-<h2>You can add items to your wishlist here:</h2>
+<div id="add-item">
+  <header >
+    <h4 class="text thin inline">You can add an item to your pending list here:</h4>
+  </header>
 
-<%= form_for(:product, url:"/products") do |f| %>
-  <%= f.hidden_field :url, value: @url %>
+  <%= form_for(:product, url:"/products") do |f| %>
+    <%= f.hidden_field :url, value: @url %>
+    <%= f.hidden_field :user_id, value: @user.id %>
 
-  <%= f.label :title %></br>
-  <%= f.text_field :title, placeholder: @title, value: @title %></br>
+    <%= f.label :title %></br>
+    <%= f.text_field :title, placeholder: @title, value: @title %></br>
 
-  <%= f.label :description %></br>
-  <%= f.text_field :description, placeholder: "Description of the item(s)", value: @description %></br>
-  <%= f.label :price %></br>
-  <%= f.text_field :price, placeholder: @price, value: @price %></br>
+    <%= f.label :description %></br>
+    <%= f.text_field :description, placeholder: "Description of the item", value: @description %></br>
+    <%= f.label :price %></br>
+    <%= f.text_field :price, placeholder: @price, value: @price %>
+    <hr>
+    <footer>
+      <button id="add-item-close" data-modal="close" class="button large secondary icon ok">Add</button>
+      <button id="add-item-cancel" data-modal="close" class="button alert icon remove">Cancel</button>
+    </footer>
+  <% end %>
 
-  <%= f.submit "Add your item(s)" %>
-<% end %>
-
-
+</div>

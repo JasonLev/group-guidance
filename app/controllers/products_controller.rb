@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
 
   def create
     product =  Product.create(params[:product])
+    redirect_to '/products'
   end
 
 end
