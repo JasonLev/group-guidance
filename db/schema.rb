@@ -11,11 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131214191954) do
+ActiveRecord::Schema.define(:version => 20131216183955) do
+
+  create_table "guidances", :force => true do |t|
+    t.string   "comment"
+    t.string   "name"
+    t.string   "email"
+    t.boolean  "vote"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "products", :force => true do |t|
     t.string   "title"
-    t.integer  "uid"
+    t.integer  "user_id"
     t.string   "asin"
     t.string   "amazon_ref"
     t.string   "amazon_img"
@@ -23,11 +32,10 @@ ActiveRecord::Schema.define(:version => 20131214191954) do
     t.string   "img_width"
     t.string   "price"
     t.text     "description"
-    t.boolean  "approved?",   :default => false
-    t.integer  "votes"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "url"
+    t.integer  "guidance_id"
   end
 
   create_table "users", :force => true do |t|
@@ -44,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20131214191954) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.string   "photo_url"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

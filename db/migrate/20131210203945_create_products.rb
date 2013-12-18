@@ -2,7 +2,7 @@ class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
       t.string :title
-      t.integer :uid
+      t.integer :user_id
       t.string :asin
       t.string :amazon_ref
       t.string :amazon_img
@@ -10,7 +10,6 @@ class CreateProducts < ActiveRecord::Migration
       t.string :img_width
       t.string :price
       t.text   :description
-      t.boolean :approved?, default: false
       t.integer :votes
 
       t.timestamps

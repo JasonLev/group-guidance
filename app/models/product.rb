@@ -1,10 +1,11 @@
 class Product < ActiveRecord::Base
   attr_accessible :title, :asin, :amazon_ref, :amazon_img, :price,
-  :description, :img_height, :img_width, :url
+  :description, :img_height, :img_width, :url, :user_id, :guidance_id
 
   belongs_to :user
+  belongs_to :guidance
 
-  # validate_presence_of :title, :price
+  validates_presence_of :title, :price, :url
 
   def is_approved(votes, group)
     if votes > (group.length / 2)
@@ -15,7 +16,7 @@ class Product < ActiveRecord::Base
   def self.amazon_request(product)
 
     current_time = DateTime.now.utc.strftime("%FT%TZ")
-    item = product #.split(" ").join
+    item = product#.gsub  || params #.split(" ").join
 
     params = {
             "Service" => "AWSECommerceService",
@@ -25,6 +26,7 @@ class Product < ActiveRecord::Base
             "Keywords" => item,
             # "ContentType" => json,
             "Operation" => "ItemSearch",
+            "ResponseGroup" => "Images,ItemAttributes",
             "SearchIndex" => "Blended",
             "Timestamp" => current_time
             }
@@ -53,10 +55,27 @@ class Product < ActiveRecord::Base
 
     doc = Nokogiri::XML(xml_doc)
     doc.remove_namespaces!
-    binding.pry
     amazon_attribs = {}
 
-    doc.search('//some/path')
+    images_urls = doc.search('//LargeImage//URL')
+    title = doc.xpath("//Title").text
+    price = doc.xpath("//FormattedPrice").text
+
+    product_pics = []
+    product_titles = []
+    all_products = []
+
+    images_urls.each do |pic|
+      product_pics << pic.text
+    end
+
+
+    amazon_attribs[:image] = product_pics
+    amazon_attribs[:title] = title
+
+    all_products.push(amazon_attribs)
+
+  #   binding.pry
   end
 
 end

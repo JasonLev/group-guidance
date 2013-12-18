@@ -7,16 +7,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <header class="bck dark">
+  <header class="bck margin-top margin-bottom">
     <div class="row">
-      <div class="column-8">
-        <a href="/">
-          <h3 class="text thick">Group Guidance</h3>
-        </a>
+      <div class="row column_5">
+
+          <a href="/">
+            <h1 class="text bold thick">Group Guidance</h1>
+          </a>
       </div>
-      <nav class="column-8 text right">
+      <nav class="column_8 text right">
         <% if user_signed_in? %>
-          Getting Group Guidance as <%= current_user.email %>.
+          <% if current_user.name == nil %>
+            Getting Group Guidance as <%= current_user.email %>.
+          <% else %>
+            Getting Group Guidance as <%= current_user.name %>.
+          <% end %>
+
           <%= link_to "Log out", destroy_user_session_path, :method => :delete %>
 
           <a href="#" class="button">
@@ -24,6 +30,7 @@
             </span>
             Log Out
           </a>
+
         <% else %>
           <a href="/users/sign_in" class="button secondary">
             <span class="icon user">
@@ -40,6 +47,21 @@
     </div>
   </header>
 <%= yield %>
-
+  <footer class="bck light padding">
+      <div class="row margin-top margin-bottom">
+          <div class="column_5 text center">
+              <p class="text bold big">Created by <a href="http://thejasonlevy.com" class="display inline">Jason Levy</a></p>
+              <div class="text center">
+                <a href="http://www.twitter.com/thejasonlevy"><span class="icon twitter"></span></a>
+                <a href="http://www.facebook.com/thejasonlevy"><span class="icon facebook"></span></a>
+                <a href="http://www.github.com/JasonLev"><span class="icon github"></span></a>
+              </div>
+          </div>
+          <div class="column_6 text center">
+              <p class="text bold big">Contribute your good guidance!  Make it better.</p>
+              Fork the project and submit pull requests. <a href="http://www.github.com/JasonLev/good-guidance" class="text underline color theme">See the repo</a>
+          </div>
+      </div>
+  </footer>
 </body>
 </html>

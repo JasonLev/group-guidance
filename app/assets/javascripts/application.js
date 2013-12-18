@@ -13,3 +13,21 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function () {
+  $('#profile_open').click(function(event) {
+    event.preventDefault();
+
+    TukTuk.Modal.show("profile")
+  })
+
+  $('.transparent.small.on-right.inline.icon.remove').click(function(event) {
+    TukTuk.Modal.hide("profile")
+  })
+
+  $('.submit').click(function(event) {
+
+    TukTuk.Modal.hide("profile")
+  })
+
+})
