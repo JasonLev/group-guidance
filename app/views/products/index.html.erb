@@ -146,18 +146,23 @@
   <header>
     <h4 class="text thin inline">You can add an item to your pending list here:</h4>
   </header>
+  <div class="margin-left margin-right">
+    <%= form_for(:product, url:"/products") do |f| %>
+      <%= f.hidden_field :url, value: @url %>
+      <%= f.hidden_field :user_id, value: @user.id %>
 
-  <%= form_for(:product, url:"/products") do |f| %>
-    <%= f.hidden_field :url, value: @url %>
-    <%= f.hidden_field :user_id, value: @user.id %>
+      <%= f.label :title %></br>
+      <%= f.text_field :title, placeholder: @title, value: @title %></br>
 
-    <%= f.label :title %></br>
-    <%= f.text_field :title, placeholder: @title, value: @title %></br>
+      <%= f.label :description %></br>
+      <%= f.text_field :description, placeholder: "Description of the item", value: @description %></br>
 
-    <%= f.label :description %></br>
-    <%= f.text_field :description, placeholder: "Description of the item", value: @description %></br>
-    <%= f.label :price %></br>
-    <%= f.text_field :price, placeholder: @price, value: @price %>
+      <%= f.label :price %></br>
+      <%= f.text_field :price, placeholder: @price, value: @price %>
+
+      <%= f.label :url %></br>
+      <%= f.text_field :url, placeholder: @url, value: @url %>
+  </div>
     <hr>
     <footer>
       <button id="add-item-submit" data-modal="close" class="button large secondary icon ok">Add</button>
@@ -182,7 +187,7 @@
           <h5>Additional Details:</h5>
           <%= product.description %><br>
           <%= product.price %><br>
-          <%= product.url %>
+          <a href="<%= product.url %>"><%= product.url %></a>
         </row>
         <hr>
       <% end %>
