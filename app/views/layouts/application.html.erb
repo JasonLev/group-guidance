@@ -9,13 +9,13 @@
 <body>
   <header class="bck margin-top margin-bottom">
     <div class="row">
-      <div class="row column_5">
+      <div class="column_4">
 
           <a href="/">
             <h1 class="text bold thick">Group Guidance</h1>
           </a>
       </div>
-      <nav class="column_8 text right">
+      <nav class="column_4 offset_3 text on-right">
         <% if user_signed_in? %>
           <% if current_user.name == nil %>
             Getting Group Guidance as <%= current_user.email %>

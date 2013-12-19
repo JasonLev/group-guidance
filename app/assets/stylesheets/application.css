@@ -12,8 +12,18 @@
  *= require_tree .
  */
 
-#inline {
-  width: 600px;
-  display: inline-block;
+#pending {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+#group {
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.product-image {
+  height: 80px;
+  width: 80px;
 }
 

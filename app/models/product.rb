@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   belongs_to :user
   has_many :guidances
 
-  # validates_presence_of :title, :price
+  validates_presence_of :title
 
   # def is_approved(votes, group)
   #   if votes > (group.length / 2)

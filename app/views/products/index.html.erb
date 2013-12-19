@@ -21,7 +21,7 @@
       </div>
       <hr>
 
-      <div class="margin">
+      <div id="group" class="margin">
           <row class="text center block">
             <strong class="text big normal margin icon group">  Your Guidance Group:</strong>
           </row>
@@ -54,8 +54,11 @@
       <h1 class="text book inline center"><span class="icon tags"></span>  Your items</h1>
     </row>
     <br>
-      <button data-tuktuk-modal="approved" class="margin-top margin-bottom bck theme secondary">Approved Items</button>
+    <h4>
+      <button id="approved-open" data-tuktuk="approved" class="margin-top margin-bottom bck theme secondary">Approved Items</button>
       <button id="pending-open" data-tuktuk="pending" class="margin-bottom bck theme">Pending Items</button>
+      <button id="rejected-open" data-tuktuk="rejected" class="margin-top margin-bottom bck dark">Rejected Items</button>
+    </h4>
   </div>
 
   <div id="add-new" class="margin padding bck theme column_10 text center inline">
@@ -74,7 +77,7 @@
       </row>
       <form id="amazon-query" class="margin" name="amazon-query">
         <input type="text" name="query" class="column_6 inline">
-        <button class="secondary inline icon search"> Search</button>
+        <button class="margin-top secondary inline icon search"> Search</button>
       </form>
     </div>
           <article class="padding scroll">
@@ -163,17 +166,17 @@
   <% end %>
 </div>
 
-<div id="pending" data-tuktuk="modal" class="column_8">
+<div id="pending"  data-tuktuk="modal" class="column_8">
     <header>
-      <h4 class="inline text book">Your Pending Items</h4>
+      <h4 class="margin-left inline text book">Your Pending Items</h4>
       <button data-modal="close" class="transparent small on-right inline icon remove"></button>
     </header>
-    <div id="product-list" class="text block margin-bottom scroll">
+    <div id="product-list" class="text block margin-left scroll">
       <% @current_user.products.each do |product| %>
-        <row class="margin">
-          <%= product.title %>
-          <img src="<%= product.image_url %>">
-          <button class="secondary tiny">Edit/Remove</button>
+        <row class="margin-left margin-right">
+          <h3><%= product.title %></h3>
+          <img class="product-image" src="<%= product.image_url %>">
+          <button class="margin-right secondary tiny on-right">Edit/Remove</button>
         </row>
         <row>
           <h5>Additional Details:</h5>
@@ -184,7 +187,7 @@
         <hr>
       <% end %>
     </div>
-    <div class="text center">
-      <button id="add-product-open" data-tuktuk="add-guidance" class="bck small">Add to your group</button>
-    </div>
+    <footer class="text center">
+      <button id="pending-close" class="bck small">close</button>
+    </footer>
 </div>

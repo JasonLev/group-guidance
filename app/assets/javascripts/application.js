@@ -68,4 +68,10 @@ $(function () {
     event.preventDefault();
     TukTuk.Modal.show("pending");
   });
+
+  // close the pending-list modal
+  $('#pending-close').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.hide("pending");
+  });
 })

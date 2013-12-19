@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   def new
     @user = current_user
     @url = params[:url]
-    @title ||= params[:title]
+    @title = params[:selTitle]
   end
 
   def create
