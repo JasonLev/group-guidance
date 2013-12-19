@@ -8,5 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :photo_url
 
   has_many :products
-  has_many :guidances, :through => :products
+  has_many :advisers
+
+  # validates_presence_of :name, :email
+
 end

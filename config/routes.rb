@@ -5,4 +5,6 @@ GroupGuidance::Application.routes.draw do
 
   resources :products
 
+  resources :advisers
+
 end

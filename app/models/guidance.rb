@@ -1,8 +1,8 @@
 class Guidance < ActiveRecord::Base
-  attr_accessible :comment, :email, :name, :vote
+  attr_accessible :comment, :adviser_id, :product_id, :vote
 
-  has_many :products
-  has_many :users, :through => :products
+  belongs_to :products
+  belongs_to :adviser
 
-  # validates_presence_of :email, :name, :vote
+  # validates_presence_of :vote
 end

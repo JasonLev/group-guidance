@@ -11,25 +11,38 @@
   </header>
     <article class="scroll">
       <% if @current_user.photo_url != nil %>
-        <img src="<%= current_user.profile_pic %>" class="responsive padding-left padding-top padding-right">
+        <img src="<%= current_user.photo_url %>" class="responsive padding-left padding-top padding-right">
       <% else %>
         <img src="/assets/default_profile_image.png" class="responsive padding-left padding-top padding-right">
         <h4 class="text small color theme inline">You can include a photo.  Just update your profile with a link to it.</h4>
       <% end %>
-      <div class="margin">
+      <div class="margin text center">
           <button id="profile-open" data-tuktuk="profile" class="margin bck theme">Update Profile</button>
-          <hr>
       </div>
+      <hr>
 
       <div class="margin">
           <row class="text center block">
-            <span class="icon group"><strong class="text big normal margin">Your Guidance Group:</strong>
-            </span>
+            <strong class="text big normal margin icon group">  Your Guidance Group:</strong>
           </row>
-          <div id="guidance-list" class="text block margin-bottom">
-            <li><%= @current_user.guidances.name %></li>
+          <article id="adviser-list" class="margin-bottom scroll">
+            <% @current_user.advisers.each do |adviser| %>
+              <table class="table">
+              <tr>
+              <td class="margin text">
+                <%= adviser.name %>
+              </td>
+              <td>
+                <button class="secondary tiny on-right">Edit/Remove</button>
+              </td>
+            <tr>
+            </table>
+              <!-- <br> -->
+            <% end %>
+          </article>
+          <div class="text center">
+            <button id="add-adviser-open" data-tuktuk="add-guidance" class="bck small">Add to your group</button>
           </div>
-          <button id="add-guidance-open" data-tuktuk="add-guidance" class="bck small">Add to your group</button>
       </div>
     </article>
 </aside>
@@ -38,16 +51,16 @@
 <article class="scroll">
   <div id="all-items" class="margin padding text center inline bck light column_10">
     <row class="margin">
-      <h1 class="text book inline center"><span class="icon tags color dark"></span>Your items</h1>
+      <h1 class="text book inline center"><span class="icon tags"></span>  Your items</h1>
     </row>
     <br>
       <button data-tuktuk-modal="approved" class="margin-top margin-bottom bck theme secondary">Approved Items</button>
-      <button data-tuktuk-modal="pending" class="margin-bottom bck theme">Pending Items</button>
+      <button id="pending-open" data-tuktuk="pending" class="margin-bottom bck theme">Pending Items</button>
   </div>
 
   <div id="add-new" class="margin padding bck theme column_10 text center inline">
     <row class="margin">
-      <h1 class="text book center"><span class="icon tag"></span>Add an item</h1>
+      <h1 class="text book center"><span class="icon tag">  Add an item</h1>
       <h3 class="text book margin-top">Have an item you'd like to input manually?  Sure you can do that here:</h3>
     </row><br>
     <button id="add-item-open" data-tuktuk="add-item"class="margin bck dark">Add your item</button>
@@ -56,7 +69,7 @@
   <div id="amazon-shop" class="margin padding bck dark column_10 text center">
     <div id="amazon-search">
       <row>
-        <h1 class="text book center"><span class="icon tags color theme"></span>Shop Amazon Items</h1>
+        <h1 class="text book center"><span class="icon tags">  Shop Amazon Items</h1>
         <h3 class="text book margin-top">Also, you can shop right here! Search for Amazon Items...</h3>
       </row>
       <form id="amazon-query" class="margin" name="amazon-query">
@@ -75,47 +88,59 @@
 
 <!-- ========================== Modals ========================== -->
 <div id="profile" data-tuktuk="modal" class="column_8">
-  <div>
-      <header>
-          <h4 class="inline text book">Update Profile</h4>
-          <button data-modal="close" class="transparent small on-right inline icon remove"></button>
-      </header>
-      <article class="form">
-          <label>Name</label>
-          <input type="text" class="large" value="text">
-          <hr>
+  <div id="update-profile">
+    <%= form_for(:user, url:"/users") do |f| %>
 
-          <label>Photo</label>
-          <input type="text" class="large" value="text">
-          <hr>
-      </article>
+      <header>
+        <h4 class="inline text book">Update Profile</h4>
+        <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+      </header>
+      <div class="margin">
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <%= f.label :name %></br>
+        <%= f.text_field :name, placeholder: @name, value: @name %></br>
+
+        <%= f.label :photo_url %><br />
+        <%= f.text_field :photo_url, placeholder: "share a link to a photo of you" %>
+        <hr>
+        <div>
+          <h4>You'll need to provide your password to make changes.</h4>
+          <%= f.label :current_password %><br />
+          <%= f.password_field :current_password %>
+        </div>
+      </div>
+      <hr>
       <footer>
-          <button data-modal="close" class="submit">Save</button>
+        <input id="update-submit" class="button submit" type="submit"></input>
       </footer>
+    <% end %>
   </div>
 </div>
 
-<div id="add-guidance" data-tuktuk="modal" class="column_8">
-  <header >
-      <h4 class="text thin inline">Add someone to give you guidance</h4>
-  </header>
-  <%= form_for(:guidance, url:"/products") do |f| %>
+<div id="add-adviser" data-tuktuk="modal" class="column_8">
+  <%= form_for(:adviser, url:"/advisers") do |f| %>
 
-    <%= f.label :name %></br>
-    <%= f.text_field :name, placeholder: @name, value: @name %></br>
+    <header>
+        <h4 class="text thin inline">Add someone to give you guidance</h4>
+    </header>
+    <div class="margin">
+      <%= f.hidden_field :user_id, value: @user.id %>
+      <%= f.label :name %></br>
+      <%= f.text_field :name, placeholder: @name, value: @name %></br>
 
-    <%= f.label :email %><br />
-    <%= f.email_field :email, :autofocus => true %>
-  <hr>
-  <footer>
-    <button id="add-guidance-close" data-modal="close" class="button large secondary icon ok">Add</button>
-    <button id="add-guidance-cancel" data-modal="close" class="button alert icon remove">Cancel</button>
-  </footer>
+      <%= f.label :email %><br />
+      <%= f.email_field :email, :autofocus => true %>
+    </div>
+    <hr>
+    <footer>
+      <input id="add-adviser-submit" class="button large secondary icon ok" type="submit" value="Add"></input>
+      <button id="add-adviser-cancel" data-modal="close" class="button alert icon remove">Cancel</button>
+    </footer>
   <% end %>
 </div>
 
 <div id="add-item" data-tuktuk="modal" class="column_8">
-  <header >
+  <header>
     <h4 class="text thin inline">You can add an item to your pending list here:</h4>
   </header>
 
@@ -132,9 +157,34 @@
     <%= f.text_field :price, placeholder: @price, value: @price %>
     <hr>
     <footer>
-      <button id="add-item-close" data-modal="close" class="button large secondary icon ok">Add</button>
+      <button id="add-item-submit" data-modal="close" class="button large secondary icon ok">Add</button>
       <button id="add-item-cancel" data-modal="close" class="button alert icon remove">Cancel</button>
     </footer>
   <% end %>
+</div>
 
+<div id="pending" data-tuktuk="modal" class="column_8">
+    <header>
+      <h4 class="inline text book">Your Pending Items</h4>
+      <button data-modal="close" class="transparent small on-right inline icon remove"></button>
+    </header>
+    <div id="product-list" class="text block margin-bottom scroll">
+      <% @current_user.products.each do |product| %>
+        <row class="margin">
+          <%= product.title %>
+          <img src="<%= product.image_url %>">
+          <button class="secondary tiny">Edit/Remove</button>
+        </row>
+        <row>
+          <h5>Additional Details:</h5>
+          <%= product.description %><br>
+          <%= product.price %><br>
+          <%= product.url %>
+        </row>
+        <hr>
+      <% end %>
+    </div>
+    <div class="text center">
+      <button id="add-product-open" data-tuktuk="add-guidance" class="bck small">Add to your group</button>
+    </div>
 </div>

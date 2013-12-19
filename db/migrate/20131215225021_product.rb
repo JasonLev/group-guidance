@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Migration
   def change
     remove_column :products, :votes
-    add_column :products, :guidance_id, :integer
+    remove_column :products, :guidance_id, :integer
+    add_column :products, :image_url
   end
 end

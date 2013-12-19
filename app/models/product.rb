@@ -1,17 +1,17 @@
 class Product < ActiveRecord::Base
   attr_accessible :title, :asin, :amazon_ref, :amazon_img, :price,
-  :description, :img_height, :img_width, :url, :user_id, :guidance_id
+  :description, :img_height, :img_width, :url, :user_id, :images_url
 
   belongs_to :user
-  belongs_to :guidance
+  has_many :guidances
 
   # validates_presence_of :title, :price
 
-  def is_approved(votes, group)
-    if votes > (group.length / 2)
-      return true
-    end
-  end
+  # def is_approved(votes, group)
+  #   if votes > (group.length / 2)
+  #     return true
+  #   end
+  # end
 
   def self.amazon_request(product)
 

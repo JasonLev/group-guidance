@@ -15,11 +15,11 @@
 //= require_tree .
 
 $(function () {
-  $( window ).load(function() {
-    if ( $('#guidance-list').length < 3) {
-    alert("You need to provide three advisers.")
-    };
-  });
+  // $( window ).load(function() {
+  //   if ( $('#guidance-list').length < 3) {
+  //   alert("You need to provide three advisers.")
+  //   };
+  // });
 
   // open the profile modal
   $('#profile-open').click(function(event) {
@@ -30,25 +30,25 @@ $(function () {
   // close the profile modal
   $('.transparent.small.on-right.inline.icon.remove').click(function(event) {
     TukTuk.Modal.hide("profile");
+    TukTuk.Modal.hide("pending-list");
   });
-  $('.submit').click(function(event) {
+  $('#update-submit').click(function(event) {
     TukTuk.Modal.hide("profile");
   });
 
-  // open the add-guidance modal
-  $('#add-guidance-open').click(function(event) {
+  // open the add-adviser modal
+  $('#add-adviser-open').click(function(event) {
     event.preventDefault();
-    TukTuk.Modal.show("add-guidance");
+    TukTuk.Modal.show("add-adviser");
   });
 
-  // close the add-guidance modal
-  $('#add-guidance-close').click(function(event) {
-    event.preventDefault();
-    TukTuk.Modal.hide("add-guidance");
+  // close the add-adviser modal
+  $('#add-adviser-submit').click(function(event) {
+    TukTuk.Modal.hide("add-adviser");
   });
-  $('#add-guidance-cancel').click(function(event) {
+  $('#add-adviser-cancel').click(function(event) {
     event.preventDefault();
-    TukTuk.Modal.hide("add-guidance");
+    TukTuk.Modal.hide("add-adviser");
   });
 
   // open the add-item modal
@@ -63,4 +63,9 @@ $(function () {
     TukTuk.Modal.hide("add-item");
   });
 
+  // open the pending-list modal
+  $('#pending-open').click(function(event) {
+    event.preventDefault();
+    TukTuk.Modal.show("pending");
+  });
 })
